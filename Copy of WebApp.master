@@ -1,0 +1,157 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Copy of WebApp.master.cs" Inherits="Masterpages_WebApp" %>
+
+
+<%@ Register Src="../Usercontrols/MegaMenu.ascx" TagName="MegaMenu" TagPrefix="uc1" %>
+
+
+<%@ Register Src="../Usercontrols/TextBoxMobile.ascx" TagName="TextBoxMobile" TagPrefix="uc2" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <title>Untitled Page</title>
+    <link runat="server" href="/images/_global.css" rel="stylesheet" type="text/css" />
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script type="text/javascript">
+
+        //Enable UpdatePanels with JQM
+        function ShowPageLoader() {
+
+            $(".ContentPlaceHolder1").hide();
+            $(".LoadingOverlay").show();
+        }
+
+        function HidePageLoader() {
+            $(".LoadingOverlay").hide();
+            $(".ContentPlaceHolder1").show();
+        }
+
+        function ShowPartialLoader() {
+
+            // $(".ContentPlaceHolder1").hide();
+            $(".LoadingOverlay").show();
+        }
+
+        function HidePartialLoader() {
+            $(".LoadingOverlay").hide();
+            //  $(".ContentPlaceHolder1").show();
+        }
+
+        function pageLoad(sender, args) {
+
+            window.onbeforeunload = ShowPageLoader;
+            if (args.get_isPartialLoad()) {
+               // alert(args.sender);
+                HidePageLoader();//For UpdatePanels
+                $('.ContentPlaceHolder1').trigger("create");
+            }
+        };
+
+
+
+
+    </script>
+
+
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <%--  Mask Input don't work in header--%>
+        <script type="text/javascript" src="/Scripts/jquery.maskedinput-1.3/jquery.maskedinput-1.3.js"></script>
+        <asp:ScriptManager runat="server" ID="ScriptManager1"></asp:ScriptManager>
+        
+        
+
+
+        <script type="text/javascript">
+
+
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+
+            prm.add_beginRequest(beginRequest);
+
+
+            function beginRequest() {
+                prm._scrollPosition = null;
+            }
+
+
+        </script>
+
+        <div class="ContentPlaceHolder1" id="DivContentPlaceHolder1" style="width: 100%" runat="server" data-role="page">
+
+
+
+            <uc1:MegaMenu ID="MegaMenu1" runat="server" />
+                <asp:PlaceHolder ID="PlaceHolderEmergency" runat="server"><div id="AudibleAlert"></div>
+                           <div class="Emergency">         
+                </div>
+            
+
+
+                    <%--<embed id="alertsound" src="/images/alert-emergency.mp3" hidden="true" autostart="false" loop="false" />--%>
+        
+            
+             <script>
+
+//
+                 function Emergency() {
+                     $('.Emergency').load('/WebApp/ajax_emergency_loader.aspx #EmergencyLoader');
+                    
+
+                     if ($('.EmergencyItem').html() != undefined) {
+                       
+                         // alert("Officer Needs Assistance")
+                        document.getElementById("AudibleAlert").innerHTML = "<embed id='alertsound' src='/images/alert-emergency.mp3' hidden=true autostart=false loop=false>";
+                     }
+                 };
+                 Emergency();
+                 setInterval(Emergency, 5000);
+                
+
+
+        </script>
+            </asp:PlaceHolder>
+       
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder> </div>
+        <div class="LoadingOverlay">
+            <asp:Image ID="ImageLogo" runat="server" /><br />
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/page-loader.gif" />
+        </div>
+        <asp:PlaceHolder runat="server" ID="PartialPostBackPlaceHolder">
+            <script>
+
+
+
+
+                var prm = Sys.WebForms.PageRequestManager.getInstance();
+                prm.add_beginRequest(function () {
+
+
+                    ShowPartialLoader();
+
+                });
+
+                prm.add_endRequest(function () {
+                    HidePartialLoader();
+                });
+
+            </script>
+
+        </asp:PlaceHolder>
+       
+
+        
+    </form>
+</body>
+</html>

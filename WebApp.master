@@ -1,0 +1,310 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="WebApp.master.cs" Inherits="Masterpages_WebApp" %>
+
+
+<%@ Register Src="../Usercontrols/MegaMenu.ascx" TagName="MegaMenu" TagPrefix="uc1" %>
+
+
+<%@ Register Src="../Usercontrols/TextBoxMobile.ascx" TagName="TextBoxMobile" TagPrefix="uc2" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <title>Untitled Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Bootstrap -->
+    <link id="bootcss" runat="server" href="/Bootstrap/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bootstrap/Content/dashboard.css" rel="stylesheet" />
+    <link id="Link1" runat="server" href="/scripts/jquery-ui-1.8.23/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script src="/bootstrap/jquery-1.9.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link href="/bootstrap/Content/yamm.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="/_Scripts/bootstrap/html5shiv.js"></script>
+      <script src="/_Scripts/bootstrap/respond.js"></script>
+    <![endif]-->
+    <%-- <link id="Link2" runat="server" href="/images/_mobile.css?fd" rel="stylesheet" type="text/css" />--%>
+    <script type="text/javascript">
+
+        //Enable UpdatePanels with JQM
+        function pageLoad(sender, args) {
+
+            // window.onbeforeunload = ShowPageLoader;
+
+
+
+            //function ShowPageLoader() {
+
+            //    // $(".ContentPlaceHolder1").hide();
+            //    //  $(".LoadingOverlay").show();
+            //    $("#myModalPageTransition").modal('show');
+
+            //}
+
+            //function HidePageLoader() {
+            //    //$(".LoadingOverlay").hide();
+            //    //$(".ContentPlaceHolder1").show();
+            //    $("#myModalPageTransition").modal('hide');
+            //}
+
+
+
+
+
+
+
+
+            if (args.get_isPartialLoad()) {
+
+                //   HidePageLoader();//For UpdatePanels
+                //  $('.ContentPlaceHolder1').trigger("create");
+                $("#myModalPageTransition").modal('show');
+            }
+        };
+
+    </script>
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <%--  Mask Input don't work in header--%>
+        <<%--script type="text/javascript" src="/Scripts/jquery.maskedinput-1.3/jquery.maskedinput-1.3.js"></script>--%>
+        <asp:ScriptManager runat="server" ID="ScriptManager1"></asp:ScriptManager>
+        <asp:Literal ID="LiteralDevice" runat="server"></asp:Literal>
+
+
+
+        <%-- <script type="text/javascript">
+
+
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+
+            prm.add_beginRequest(beginRequest);
+
+
+            function beginRequest() {
+                prm._scrollPosition = null;
+            }
+
+
+        </script>--%>
+        <uc1:MegaMenu ID="MegaMenu1" runat="server" />
+        
+        <div class="ContentPlaceHolder1 container-fluid" id="DivContentPlaceHolder1" runat="server" data-role="page">
+
+
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+
+                    <ul class="nav nav-sidebar">
+
+                        <li class="PageTransitionHolder" runat="server" id="DivUserList">
+                            <asp:HyperLink ID="HyperLink4" runat="server" Text="Users" CssClass="PageTransition" NavigateUrl="/WebApp/user_list.aspx"><b class="glyphicon glyphicon-user"></b> Users</asp:HyperLink>
+
+                        </li>
+                        <li class="PageTransitionHolder" runat="server" id="DivMessageList">
+                            <asp:HyperLink ID="HyperLink10" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/message_center.aspx"><b class="glyphicon glyphicon-envelope"></b> Messaging & Tracking</asp:HyperLink>
+
+                        </li>
+                           </ul>
+                      <ul class="nav nav-sidebar">
+                        <li class="PageTransitionHolder" runat="server" id="DivRanchList">
+                            <asp:HyperLink ID="HyperLink1" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/ranch_list.aspx"><b class="glyphicon glyphicon-star"></b> Ranches</asp:HyperLink>
+
+                        </li>
+
+                        <li class="PageTransitionHolder" runat="server" id="DivGateList">
+                            <asp:HyperLink ID="HyperLink2" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/gate_list.aspx"><b class="glyphicon glyphicon-tower"></b> Gates</asp:HyperLink>
+
+                        </li>
+                            <li class="PageTransitionHolder" runat="server" id="DivDestinationsList">
+                            <asp:HyperLink ID="HyperLink14" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/destination_list.aspx"><b class="glyphicon glyphicon-tower"></b> Destinations</asp:HyperLink>
+
+                        </li>
+                        <li class="PageTransitionHolder" runat="server" id="DivCompanyList">
+                            <asp:HyperLink ID="HyperLink3" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/company_list.aspx"><b class="glyphicon glyphicon-briefcase"></b> Companies</asp:HyperLink>
+
+                        </li>
+
+                        <li class="PageTransitionHolder" runat="server" id="DivContactList">
+                            <asp:HyperLink ID="HyperLink7" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/user_list.aspx?UserTypeID=4"><b class="glyphicon glyphicon-user"></b> Company Contacts</asp:HyperLink>
+
+                        </li>
+
+                        </ul>
+                      <ul class="nav nav-sidebar">
+                        <li class="PageTransitionHolder" runat="server" id="DivReportList">
+                            <asp:HyperLink ID="HyperLink5" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/report_list.aspx"><b class="glyphicon glyphicon-list"></b> Incident Reports</asp:HyperLink>
+
+                        </li>
+                        <li class="PageTransitionHolder" runat="server" id="DivPhotoList">
+                            <asp:HyperLink ID="HyperLink9" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/photos.aspx"><b class="glyphicon glyphicon-picture"></b> Incident Photos</asp:HyperLink>
+
+                        </li>
+                            <li class="PageTransitionHolder" runat="server" id="DivVehIntel">
+
+                            <asp:HyperLink ID="HyperLinkIntel" runat="server" Tesxt="" CssClass="PageTransition" NavigateUrl="/WebApp/intel_list.aspx"><b class="glyphicon glyphicon-info-sign"></b> Vehicle Intelligence</asp:HyperLink>
+
+                        </li>
+                           </ul>
+                      <ul class="nav nav-sidebar">
+                        <li class="PageTransitionHolder" runat="server" id="DivAgencyList">
+                            <asp:HyperLink ID="HyperLink8" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/agency_list.aspx"><b class="glyphicon glyphicon-list"></b> Agencies</asp:HyperLink>
+                            
+                        </li>
+                        <li class="PageTransitionHolder" runat="server" id="DivOfficerList">
+                            <asp:HyperLink ID="HyperLink6" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/user_list.aspx?UserTypeID=3"><b class="glyphicon glyphicon-user"></b> Officers</asp:HyperLink>
+
+                        </li>
+
+                           </ul>
+                      <ul class="nav nav-sidebar">
+                        <li class="PageTransitionHolder" runat="server" id="DivTrafficLog">
+                            <asp:HyperLink ID="HyperLink11" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/report_traffic.aspx"><b class="glyphicon glyphicon-road"></b> Traffic Logs</asp:HyperLink>
+
+                        </li>
+
+
+                        <li class="PageTransitionHolder" runat="server" id="DivTimeSheet">
+                            <asp:HyperLink ID="HyperLink12" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/report_timesheet.aspx"><b class="glyphicon glyphicon-time"></b> Time Sheet Logs</asp:HyperLink>
+
+                        </li>
+
+                         
+                        <li class="PageTransitionHolder" runat="server" id="DivTrafficFormSettings">
+
+                            <asp:HyperLink ID="HyperLink13" runat="server" Text="" CssClass="PageTransition" NavigateUrl="/WebApp/traffic_form_configuration.aspx"><b class="glyphicon glyphicon-cog"></b> Traffic Form Settings</asp:HyperLink>
+
+                        </li>
+
+
+                    
+                    </ul>
+
+                </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <asp:PlaceHolder ID="PlaceHolderEmergency" runat="server">
+            <div id="AudibleAlert"></div>
+            <div class="Emergency">
+            </div>
+            <script>
+
+                //
+                function Emergency() {
+                    $('.Emergency').load('/WebApp/ajax_emergency_loader.aspx #EmergencyLoader');
+
+
+                    if ($('.EmergencyItem').html() != undefined) {
+
+                        // alert("Officer Needs Assistance")
+                        document.getElementById("AudibleAlert").innerHTML = "<embed id='alertsound' src='/images/alert-emergency.mp3' hidden=true autostart=false loop=false>";
+                        $('.Emergency').addClass('alert alert-danger');
+
+                    }
+                };
+                Emergency();
+                setInterval(Emergency, 5000);
+
+
+
+            </script>
+        </asp:PlaceHolder>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+            </div>
+        
+            
+       
+        </div>
+
+
+        <!-- Page Transition Modal -->
+        <div class="modal fade" id="myModalPageTransition" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPageTransition" aria-hidden="true">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">Loading View...</div>
+                    <div class="modal-body">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            $(document).ready(function () {
+
+
+
+
+                var isChrome = window.chrome;
+                if (isChrome) {
+
+
+                $('.pagination').addClass('pagination-sm');
+
+                //$('button').addClass('btn btn-default');
+               $('input[type="button"]').addClass('btn');
+               $('input[type="submit"]').addClass('btn');
+               $('button').addClass('btn');
+               $('body').find('a[data-role="button"]').addClass('btn');
+                $('select,input[type="text"],input[type="date"],textarea').addClass('form-control');
+                $('.form-control').addClass('input-sm');
+
+                $('.btn').addClass('btn-default btn-sm');
+
+             
+                $('input').removeClass('input-lg');
+                $('input').removeClass('input-md');
+
+                $(".PageTransition").click(function (event) {
+                    $('#myModalPageTransition').modal('show');
+                })
+
+
+
+                $(".MenuPageTransition").click(function (event) {
+
+                    //var link = $(this).attr("href");
+                    //$(".ContentPlaceHolder1").hide();
+                    //$(".LoadingOverlay").show();
+                    //setTimeout(function () { Redirect(link); },100);
+                    //return false;
+                    $('#myModalPageTransition').modal('show');
+
+
+                })
+
+                } else {
+                    $('body').hide();
+                    alert('You are not using an approved browser for this application. Please download and use Google Chrome.');
+                }
+
+            });
+
+
+
+
+        </script>
+
+    </form>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

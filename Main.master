@@ -1,0 +1,67 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Masterpages_Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link id="Link1" runat="server" href="/images/_global.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+
+        //Enable UpdatePanels with JQM
+        function ShowPageLoader() {
+
+            $(".ContentPlaceHolder1").hide();
+            $(".LoadingOverlay").show();
+        }
+
+        function HidePageLoader() {
+            $(".LoadingOverlay").hide();
+            $(".ContentPlaceHolder1").show();
+        }
+
+        function ShowPartialLoader() {
+
+            // $(".ContentPlaceHolder1").hide();
+            $(".LoadingOverlay").show();
+        }
+
+        function HidePartialLoader() {
+            $(".LoadingOverlay").hide();
+            //  $(".ContentPlaceHolder1").show();
+        }
+
+        function pageLoad(sender, args) {
+
+            window.onbeforeunload = ShowPageLoader;
+            if (args.get_isPartialLoad()) {
+                HidePageLoader();//For UpdatePanels
+                $('.ContentPlaceHolder1').trigger("create");
+            }
+        };
+
+
+
+
+        </script>
+</head>
+<body>
+    <form id="form1" runat="server"> <asp:ScriptManager runat="server" ID="ScriptManager1"></asp:ScriptManager>
+    <div class="ContentPlaceHolder1" id="DivContentPlaceHolder1" data-role="page" style="width:100%;" runat="server">
+        
+        
+        
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+
+
+    </div>  <div class="LoadingOverlay">
+        <asp:Image ID="ImageLogo" runat="server" /><br />
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/page-loader.gif" /></div>
+       
+    </form>
+</body>
+</html>

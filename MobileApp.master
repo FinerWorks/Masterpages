@@ -1,0 +1,433 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MobileApp.master.cs" Inherits="Masterpages_MobileApp" %>
+
+<%@ Register Src="~/Usercontrols/Messanger.ascx" TagPrefix="uc1" TagName="Messanger" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Bootstrap -->
+  <link id="bootcss" runat="server" href="/Bootstrap/Content/bootstrap.min.css" rel="stylesheet" />
+     <link id="Link1" runat="server" href="/scripts/jquery-ui-1.8.23/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+     <script src="/bootstrap/jquery-1.9.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link href="/bootstrap/Content/yamm.css" rel="stylesheet" />
+  
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="/_Scripts/bootstrap/html5shiv.js"></script>
+      <script src="/_Scripts/bootstrap/respond.js"></script>
+    <![endif]-->
+   <%-- <link id="Link2" runat="server" href="/images/_mobile.css?fd" rel="stylesheet" type="text/css" />--%>
+    <script type="text/javascript">
+
+        //Enable UpdatePanels with JQM
+        function pageLoad(sender, args) {
+
+            // window.onbeforeunload = ShowPageLoader;
+
+          
+
+            function ShowPageLoader() {
+
+               // $(".ContentPlaceHolder1").hide();
+                //  $(".LoadingOverlay").show();
+                $("#myModalPageTransition").modal('show');
+                
+            }
+
+            function HidePageLoader() {
+                //$(".LoadingOverlay").hide();
+                //$(".ContentPlaceHolder1").show();
+                $("#myModalPageTransition").modal('hide');
+            }
+
+
+
+          
+
+            
+
+
+            if (args.get_isPartialLoad()) {
+
+             //   HidePageLoader();//For UpdatePanels
+                //  $('.ContentPlaceHolder1').trigger("create");
+                $("#myModalPageTransition").modal('show');
+            }
+        };
+
+    </script>
+</head>
+<body style="padding-bottom: 70px;">
+    <form id="form1" runat="server" defaultbutton="NoGoSoftKey" autocomplete="off">
+        <asp:Literal ID="LiteralDevice" runat="server"></asp:Literal>
+<div id="FixedIcon" style="position:fixed;padding:10px;display:none;">
+    <asp:HyperLink ID="HyperLinkMessageIcon" runat="server"  NavigateUrl="~/MobileApp/message_center.aspx?show=all" CssClass="MenuPageTransition"><b id="MessageGlyphicon" class="glyphicon glyphicon-envelope" style="font-size:30px;"></b></asp:HyperLink>
+  
+    </div>
+
+        <%--This is to prevent the Go Button on Softkeyboard from submitting form--%>
+        <asp:Button ID="NoGoSoftKey" runat="server" Text="" OnClientClick="return false;" style="display:none;"/>
+        <asp:ScriptManager runat="server" ID="ScriptManager1"></asp:ScriptManager>
+        <%-- Script Manager will cause conflicts with jquery mobile--%>
+
+
+        <div class="ContentPlaceHolder1 container" data-role="page" runat="server" data-theme="c">
+            <%--  <div style="margin: auto; width: 90%" runat="server" id="Menu" data-role="collapsible" data-collapsed="false">
+                <h3>Management</h3>--%>
+
+
+            
+       
+
+           
+
+
+            
+
+         <%--<div class="MenuButton"><asp:HyperLink ID="HyperLinkMenu" runat="server" data-ajax="false" ImageUrl="~/Images/AppIcons/menu.png" onClick="$('#Menu').toggle('slow');"/></div>--%>
+
+            
+
+            <%--<div style="margin: auto; width: 80%" runat="server" id="DivMessages" data-role="collapsible"  data-collapsed="false">
+                <h3>Last Message</h3>
+        <uc1:Messanger runat="server" ID="Messanger" mini="false" ShowOnlyTopMessage="true" />
+            </div>--%>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+
+
+        
+
+
+        </div>
+
+        <script>
+
+            function Redirect(url) {
+                window.location.href = url;
+            }
+
+            
+            $(".HideButton").click(function (event) {
+               
+                //  $(".ContentPlaceHolder1").hide();
+                //   $(".LoadingOverlay").show();
+
+
+            })
+        </script>
+        <div class="LoadingOverlay" style="display:none">
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/page-loader.gif" />
+        </div>
+
+            
+
+            <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><div class="row"><div class="col-sm-4"><img src="<%= GlobalVar.SiteLogoUrl.Replace("~","") %>" style="height:20px;width:auto" /></div><div class="col-sm-8"><%=GlobalVar.SiteName %></div></div></a>
+    </div>
+    
+
+   
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+ 
+
+
+      <ul class="nav navbar-nav" runat="server" id="Menu"  >
+        
+
+
+              
+                        <li><asp:HyperLink ID="HyperLinkMyAccount" runat="server" data-ajax="false" NavigateUrl="~/MobileApp/my_account.aspx?login=true&view=home" CssClass="MenuPageTransition">My Account</asp:HyperLink></li>
+                       
+
+
+
+
+                        <li><asp:HyperLink ID="HyperLinkTraffic" runat="server" data-ajax="false"  NavigateUrl="~/MobileApp/traffic.aspx" CssClass="MenuPageTransition">Traffic Log</asp:HyperLink></li>
+                   
+                        <li><asp:HyperLink ID="HyperLinkSearchTraffic" runat="server" data-ajax="false"  NavigateUrl="~/MobileApp/traffic_log_search.aspx" CssClass="MenuPageTransition">Review Logs</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLinkVehicleIntelligence" runat="server" data-ajax="false"  NavigateUrl="~/MobileApp/intel_list.aspx" CssClass="MenuPageTransition">Vehicle Intel</asp:HyperLink></li>
+                  
+                        <li><asp:HyperLink ID="HyperLinkReports" runat="server" data-ajax="false"  NavigateUrl="~/MobileApp/report_list.aspx" CssClass="MenuPageTransition" >Incident Reports</asp:HyperLink></li>
+                     
+                   
+                        <li><asp:HyperLink ID="HyperLinkMessanger" runat="server" data-ajax="false"  NavigateUrl="~/MobileApp/message_center.aspx?show=all" CssClass="MenuPageTransition">Messaging</asp:HyperLink></li>
+                   
+
+                    
+                  
+                     <%--   <li><asp:HyperLink ID="HyperLinkCamera" runat="server" data-ajax="false"  CssClass="MenuPageTransition">Camera</asp:HyperLink></li>
+                        
+                     <li><input type="file" accept="image/*" capture="camera" class="btn btn-default" /></li>--%>
+
+
+
+
+                  
+                       <li> <asp:HyperLink ID="HyperLinkSignOut" runat="server" data-ajax="false"  NavigateUrl="~/MobileApp/signout.aspx" CssClass="MenuPageTransition" >Signout</asp:HyperLink></li>
+            </ul>  
+
+          
+
+          <!-- Page Transition Modal -->
+<div class="modal fade" id="myModalPageTransition" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPageTransition" aria-hidden="true">
+  <div class="modal-dialog">
+     
+    <div class="modal-content">
+      <div class="modal-header">Loading View...</div>
+      <div class="modal-body">
+       <div class="progress progress-striped active">
+  <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+   
+  </div>
+</div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+           
+
+
+          
+
+
+       
+            <ul class="nav navbar-nav navbar-right" runat="server" id="MenuRight">
+                <li class="active"><a id="StartEmergency" href="#" data-toggle="modal" data-target="#myModalEmergency">Emergency</a></li>
+            </ul>
+           <p class="navbar-text navbar-right"><%=GlobalFunctions.RequestEcryptedCookies("UserFullName") %> <b class="glyphicon glyphicon-screenshot"></b> <span id="GPSCoord"></span>&nbsp;</p>
+               
+          
+        
+
+
+  </div>
+  </div>
+
+</nav>
+      <!-- Modal -->
+<div class="modal fade" id="myModalEmergency" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEmergency" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Emergency Button</h4>
+      </div>
+      <div class="modal-body text-center">
+       <button id="EmergencyButton" class="btn btn-danger" data-dismiss="modal">Click if Emergency</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+       
+      </div>
+    </div>
+  </div>
+</div> 
+        
+
+
+
+
+       <audio id="YouGotMail" controls class="hidden">
+        <source src="/Images/sounds/beep-8.mp3" type="audio/mp3" />
+</audio>
+ <audio id="EmergencySiren" controls class="hidden">
+        <source src="/Images/sounds/air-raid-siren-alert.mp3" type="audio/mp3" />
+</audio> 
+        <script>
+
+           $(document).ready(function () {
+
+               var isChrome = window.chrome;
+               if (isChrome) {
+               
+               
+       
+
+        if (localStorage.getItem("UserStatusID") == undefined) {
+                   localStorage.setItem("UserStatusID", "<%=GlobalFunctions.RequestEcryptedCookies("UserStatusID")%>");
+        }
+
+
+        if (localStorage.getItem("UserStatusID") != "3") {
+            $('#StartEmergency').text('Emergency');
+            $('#EmergencyButton').text('Click if Emergency');
+        }
+        if (localStorage.getItem("UserStatusID") == "3") {
+            $('#StartEmergency').text('End Emergency');
+            $('#EmergencyButton').text('Cancel Emergency');
+        }
+
+        setInterval(function () {
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/Usercontrols/WebService.asmx/GetNewMessageID",
+                data: "{'UserID':'<%=GlobalFunctions.RequestEcryptedCookies("UserID")%>'}",
+                    //data: "{'keywords':'" + request.term + "'}",
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+
+                        console.log(data.d);
+                        var MessagePriority = Number(data.d);
+
+                        if (MessagePriority > 0) {
+                            if (MessagePriority == 1) {
+                                $('#EmergencySiren').get(0).play();
+                                $('#MessageGlyphicon').attr('class', 'glyphicon glyphicon-flag');
+                                $('#FixedIcon').show();
+                            } else {
+                                $('#YouGotMail').get(0).play();
+                                $('#MessageGlyphicon').attr('class', 'glyphicon glyphicon-envelope');
+                                $('#FixedIcon').show();
+                            }
+                            console.log('MessagePriority:' + MessagePriority);
+                        }
+
+                    },
+                    error: function (result) {
+                        // alert("");
+                    }
+
+
+                });
+
+        }, 10000);
+
+
+       
+        $('.pagination').addClass('pagination-lg');
+
+        $('button').addClass('btn btn-default');
+        $('input[type="button"]').addClass('btn btn-default');
+        $('input[type="submit"]').addClass('btn btn-default');
+        $('select,input[type="text"],input[type="date"],textarea').addClass('form-control');
+        $('.form-control').addClass('input-lg');
+
+        $('.btn').addClass('btn-lg');
+
+
+        $(".PageTransition").click(function (event) {
+            $('#myModalPageTransition').modal('show');
+        })
+
+
+
+        $(".MenuPageTransition").click(function (event) {
+
+            //var link = $(this).attr("href");
+            //$(".ContentPlaceHolder1").hide();
+            //$(".LoadingOverlay").show();
+            //setTimeout(function () { Redirect(link); },100);
+            //return false;
+            $('#myModalPageTransition').modal('show');
+
+
+        })
+
+        function onSuccess(position) {
+
+            var Lat = position.coords.latitude;
+            var Lon = position.coords.longitude;
+
+            $('.HiddenField_lat').val(Lat);
+            $('.HiddenField_lon').val(Lon);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/Usercontrols/WebService.asmx/UpdateGPS",
+                data: "{'LoggedInLat':'" + Lat + "','LoggedInLon':'" + Lon + "','LoggedInUserID':'<%=GlobalFunctions.RequestEcryptedCookies("UserID")%>'}",
+                //data: "{'keywords':'" + request.term + "'}",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    $("#GPSCoord").text(data.d);
+
+
+                },
+                error: function (result) {
+                    $("#GPSCoord").text("Error Posting GPS");
+                }
+            });
+
+
+
+        }
+
+
+        $('#EmergencyButton').on('click', function () {
+
+            var NewUserStatusID = "";
+            if (  $('#EmergencyButton').text() == 'Click if Emergency') {
+                NewUserStatusID = "3";
+            } else {
+                NewUserStatusID = "1";
+            }
+            console.log('NewUserStatusID:' + NewUserStatusID);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/Usercontrols/WebService.asmx/Emergency",
+                data: "{'UserID':'<%=GlobalFunctions.RequestEcryptedCookies("UserID")%>','UserStatusID':'" + NewUserStatusID + "'}",
+                //data: "{'keywords':'" + request.term + "'}",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    console.log("Emergency MessagePriorityID:" + data.d);
+                    var MessagePriorityID = Number(data.d);
+                    if (MessagePriorityID != 1) {
+                        localStorage.setItem("UserStatusID", "1");
+                        $('#StartEmergency').text('Emergency');
+                        $('#EmergencyButton').text('Click if Emergency');
+                    } else {
+                        localStorage.setItem("UserStatusID", "3");
+                        $('#StartEmergency').text('End Emergency');
+                        $('#EmergencyButton').text('Cancel Emergency');
+                    }
+                },
+                error: function (result) {
+
+                }
+            });
+        });
+
+        function onError(errorObject) {
+            $("#GPSCoord").text("No GPS Data Found");
+        }
+        navigator.geolocation.watchPosition(onSuccess, onError, { frequency: 15000, maximumAge: 3000, timeout: 5000, enableHighAccuracy: true })
+               } else {
+                   $('body').hide();
+                   alert('You are not using an approved browser for this application. Please download and use Google Chrome.');
+               }
+    });
+    </script>
+     
+    </form>
+       <script src="/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
